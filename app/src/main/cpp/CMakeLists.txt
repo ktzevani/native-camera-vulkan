@@ -18,8 +18,8 @@ add_definitions(
         -DVK_NO_PROTOTYPES
         -DNDEBUG
         #-DNCV_VULKAN_VALIDATION_ENABLED
-        -DNCV_LOGGING_ENABLED
-        -DNCV_PROFILING_ENABLED
+        #-DNCV_LOGGING_ENABLED
+        #-DNCV_PROFILING_ENABLED
 )
 
 add_library(native_app_glue STATIC ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
