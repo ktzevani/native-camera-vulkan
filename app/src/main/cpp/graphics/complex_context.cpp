@@ -631,12 +631,6 @@ namespace graphics
             m_desc_configs[i].writes[1].descriptorCount = 1;
             m_desc_configs[i].writes[1].pImageInfo = &m_desc_configs[i].image_infos[0];
 
-            //m_desc_configs[i].writes[2].dstSet = m_desc_sets[i];
-            //m_desc_configs[i].writes[2].dstBinding = 2;
-            //m_desc_configs[i].writes[2].dstArrayElement = 0;
-            //m_desc_configs[i].writes[2].descriptorType = DescriptorType::eCombinedImageSampler;
-            //m_desc_configs[i].writes[2].descriptorCount = 1;
-            //m_desc_configs[i].writes[2].pImageInfo = &m_desc_configs[i].image_infos[1];
         }
 
         if constexpr(__ncv_logging_enabled)

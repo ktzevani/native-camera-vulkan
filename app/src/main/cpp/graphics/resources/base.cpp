@@ -1,6 +1,5 @@
 #include <graphics/resources/base.hpp>
 
-//using namespace ::std;
 using namespace ::vk;
 
 namespace graphics{ namespace resources{
