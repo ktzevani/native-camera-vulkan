@@ -18,7 +18,7 @@ namespace graphics{ namespace resources{
 
         base(const vk::PhysicalDevice& a_gpu, const vk::UniqueDevice& a_device);
 
-        vk::DeviceSize size() { return m_size; }
+        size_t data_size() { return m_data_size; }
 
     protected:
 

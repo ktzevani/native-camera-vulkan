@@ -42,12 +42,9 @@ namespace graphics{ namespace resources{
 
         ExternalFormatANDROID external_format;
 
-        external_format.pNext = &ext_mem_info;
         external_format.externalFormat = format_info.externalFormat;
 
         SamplerYcbcrConversionCreateInfo conv_info;
-
-        external_format.pNext = nullptr;
 
         conv_info.pNext = &external_format;
         conv_info.format = Format::eUndefined;
@@ -64,7 +61,6 @@ namespace graphics{ namespace resources{
         SamplerYcbcrConversionInfo conv_sampler_info;
 
         conv_sampler_info.conversion = m_conversion;
-        conv_sampler_info.pNext = &external_format;
 
         SamplerCreateInfo sampler_info;
 
@@ -196,7 +192,6 @@ namespace graphics{ namespace resources{
         SamplerYcbcrConversionInfo conv_sampler_info;
 
         conv_sampler_info.conversion = m_conversion;
-        conv_sampler_info.pNext = &external_format;
 
         ImageViewCreateInfo img_view_info;
 

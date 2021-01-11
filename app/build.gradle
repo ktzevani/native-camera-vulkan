@@ -4,9 +4,9 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
-    ndkVersion "21.3.6528147"
+    ndkVersion "22.0.7026061"
 
     defaultConfig {
         applicationId "com.ktzevani.nativecameravulkan"
@@ -39,10 +39,17 @@ android {
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-            version "3.19.0-rc1"
+            version "3.19.2"
         }
     }
 
+    sourceSets {
+        main {
+            jniLibs {
+                srcDir System.getenv('LIBRARIES_ROOT') + "/vulkan_validation_layers/bin/android-1.2.162"
+            }
+        }
+    }
 }
 
 dependencies {

@@ -100,6 +100,7 @@ namespace graphics
             m_texture_data.reset();
             m_camera_image.reset();
             m_vertex_data.reset();
+            m_index_data.reset();
             release_rendering_resources();
             m_device->destroyRenderPass(m_render_pass);
             for(auto& semaphore : m_proc_semaphores)
@@ -199,12 +200,17 @@ namespace graphics
         queue_infos[0].pQueuePriorities = queue_priorities.data();
         queue_infos[0].flags = static_cast<DeviceQueueCreateFlags>(0);
 
-        PhysicalDeviceFeatures dev_features;
+        PhysicalDeviceFeatures2 dev_features;
+        PhysicalDeviceSamplerYcbcrConversionFeatures ycbcr_features;
 
-        dev_features.samplerAnisotropy = true;
+        ycbcr_features.samplerYcbcrConversion = true;
+
+        dev_features.pNext = &ycbcr_features;
+        dev_features.features.samplerAnisotropy = true;
 
         DeviceCreateInfo dev_info;
 
+        dev_info.pNext = &dev_features;
         dev_info.flags = static_cast<DeviceCreateFlags>(0);
         dev_info.queueCreateInfoCount = 1;
         dev_info.pQueueCreateInfos = queue_infos.data();
@@ -212,8 +218,6 @@ namespace graphics
         dev_info.ppEnabledLayerNames = nullptr;
         dev_info.enabledExtensionCount = m_requested_dev_extensions.size();
         dev_info.ppEnabledExtensionNames = m_requested_dev_extensions.data();
-        dev_info.pEnabledFeatures = nullptr;
-        dev_info.pEnabledFeatures = &dev_features;
 
         m_device = m_gpu.createDeviceUnique(dev_info);
 
@@ -741,8 +745,8 @@ namespace graphics
 
         DeviceSize buf_offset = 0;
 
-        vector<BufferCopy> copy_vertex_regions{{0, 0, m_vertex_data->size()}};
-        vector<BufferCopy> copy_index_regions{{0, 0, m_index_data->size()}};
+        vector<BufferCopy> copy_vertex_regions{{0, 0, m_vertex_data->data_size()}};
+        vector<BufferCopy> copy_index_regions{{0, 0, m_index_data->data_size()}};
 
         ImageMemoryBarrier cam_frag_barrier;
 

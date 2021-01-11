@@ -13,30 +13,7 @@ namespace vk_util
         if(a_flags & DebugReportFlagBitsEXT::eInformation)
             _log_android(log_level::info) << a_layer_prefix << " - " << a_msg;
         else if(a_flags & DebugReportFlagBitsEXT::eWarning)
-        {
-            bool log_verbose = false;
-            string msg_str(a_msg);
-            array<string, 4> filters = {
-                    "[ VUID-VkSamplerCreateInfo-pNext-pNext ]",
-                    "[ VUID-VkImageViewCreateInfo-pNext-pNext ]",
-                    "VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID",
-                    "VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO"
-            };
-
-            if(msg_str.find(filters[0]) != string::npos ||
-               msg_str.find(filters[1]) != string::npos)
-            {
-                if(msg_str.find(filters[2]) != string::npos ||
-                   ((msg_str.find(filters[1]) != string::npos) &&
-                    (msg_str.find(filters[3]) != string::npos)))
-                    log_verbose = true;
-            }
-
-            if(log_verbose)
-                _log_android(log_level::verbose) << a_layer_prefix << " - " << a_msg;
-            else
-                _log_android(log_level::warning) << a_layer_prefix << " - " << a_msg;
-        }
+            _log_android(log_level::warning) << a_layer_prefix << " - " << a_msg;
         else if(a_flags & DebugReportFlagBitsEXT::eDebug)
             _log_android(log_level::debug) << a_layer_prefix << " - " << a_msg;
         else if(a_flags & DebugReportFlagBitsEXT::ePerformanceWarning)
@@ -51,31 +28,19 @@ namespace vk_util
             // the following workaround.
 
             string msg_str(a_msg);
-            array<string, 4> VUID_01881 = {
-                    "VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01881",
-                    "format ( 34 )",
-                    "format ( 35 )",
-                    "usage ( 0x20100 )"
-            };
-            array<string, 3> VUID_02273 = {
-                    "VUID-VkImageViewCreateInfo-None-02273",
+
+            array<string, 3> VUID_02274 = {
+                    "VUID-VkImageViewCreateInfo-usage-02274",
                     "VK_FORMAT_UNDEFINED",
                     "VK_IMAGE_TILING_OPTIMAL"
             };
 
             auto ret_flag = VK_TRUE;
 
-            if(msg_str.find(VUID_01881[0]) != string::npos)
+            if(msg_str.find(VUID_02274[0]) != string::npos)
             {
-                if(msg_str.find(VUID_01881[3]) != string::npos &&
-                   (msg_str.find(VUID_01881[1]) != string::npos ||
-                    msg_str.find(VUID_01881[2]) != string::npos))
-                    ret_flag = VK_FALSE;
-            }
-            else if(msg_str.find(VUID_02273[0]) != string::npos)
-            {
-                if(msg_str.find(VUID_02273[1]) != string::npos &&
-                   msg_str.find(VUID_02273[2]) != string::npos)
+                if(msg_str.find(VUID_02274[1]) != string::npos &&
+                   msg_str.find(VUID_02274[2]) != string::npos)
                     ret_flag = VK_FALSE;
             }
 
