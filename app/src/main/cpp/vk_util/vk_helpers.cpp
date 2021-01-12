@@ -34,13 +34,32 @@ namespace vk_util
                     "VK_FORMAT_UNDEFINED",
                     "VK_IMAGE_TILING_OPTIMAL"
             };
+            /*
+            array<string, 2> VUID_VkSamplerCreateInfo = {
+                    "VUID-VkSamplerCreateInfo-pNext-pNext",
+                    "VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID"
+            };
 
+            array<string, 2> VUID_VkImageViewCreateInfo = {
+                    "VUID-VkImageViewCreateInfo-pNext-pNext",
+                    "VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID"
+            };
+            */
             auto ret_flag = VK_TRUE;
-
-            if(msg_str.find(VUID_02274[0]) != string::npos)
+            /*
+            if(msg_str.find(VUID_VkSamplerCreateInfo[0]) != string::npos)
             {
-                if(msg_str.find(VUID_02274[1]) != string::npos &&
-                   msg_str.find(VUID_02274[2]) != string::npos)
+                if(msg_str.find(VUID_VkSamplerCreateInfo[1]) != string::npos)
+                    ret_flag = VK_FALSE;
+            }
+            else if(msg_str.find(VUID_VkImageViewCreateInfo[0]) != string::npos)
+            {
+                if (msg_str.find(VUID_VkImageViewCreateInfo[1]) != string::npos)
+                    ret_flag = VK_FALSE;
+            }
+            else */if(msg_str.find(VUID_02274[0]) != string::npos)
+            {
+                if(msg_str.find(VUID_02274[1]) != string::npos && msg_str.find(VUID_02274[2]) != string::npos)
                     ret_flag = VK_FALSE;
             }
 

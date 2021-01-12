@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19.0-rc1)
+cmake_minimum_required(VERSION 3.19.2)
 
 project(native-camera-vulkan)
 

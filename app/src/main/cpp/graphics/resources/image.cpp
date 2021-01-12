@@ -61,6 +61,7 @@ namespace graphics{ namespace resources{
         SamplerYcbcrConversionInfo conv_sampler_info;
 
         conv_sampler_info.conversion = m_conversion;
+        //conv_sampler_info.pNext = &external_format;
 
         SamplerCreateInfo sampler_info;
 
@@ -192,6 +193,8 @@ namespace graphics{ namespace resources{
         SamplerYcbcrConversionInfo conv_sampler_info;
 
         conv_sampler_info.conversion = m_conversion;
+        //external_format.pNext = nullptr;
+        //conv_sampler_info.pNext = &external_format;
 
         ImageViewCreateInfo img_view_info;
 
