@@ -49,7 +49,7 @@ namespace graphics
         vk::Queue m_pres_queue;
         int32_t m_selected_queue_family_index = -1;
 
-        vk::DebugReportCallbackEXT m_debug_msg;
+        vk::DebugUtilsMessengerEXT m_debug_msg;
 
         android_app* m_app = nullptr;
     };

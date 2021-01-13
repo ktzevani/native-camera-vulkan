@@ -27,7 +27,7 @@ namespace graphics
         // Create an instance and query for physical devices
 
         if (m_enable_validation)
-            m_requested_gl_extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+            m_requested_gl_extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 
         ApplicationInfo app_info;
 
@@ -58,17 +58,21 @@ namespace graphics
 
         VULKAN_HPP_DEFAULT_DISPATCHER.init(m_instance.get());
 
-        if (m_enable_validation)
+        if(m_enable_validation)
         {
-            DebugReportCallbackCreateInfoEXT msg_info;
+            DebugUtilsMessengerCreateInfoEXT msg_info;
 
-            msg_info.flags = DebugReportFlagBitsEXT::eError |
-                             DebugReportFlagBitsEXT::eInformation |
-                             DebugReportFlagBitsEXT::eWarning |
-                             DebugReportFlagBitsEXT::ePerformanceWarning;
+            msg_info.messageSeverity = DebugUtilsMessageSeverityFlagBitsEXT::eError |
+                DebugUtilsMessageSeverityFlagBitsEXT::eInfo |
+                DebugUtilsMessageSeverityFlagBitsEXT::eWarning |
+                DebugUtilsMessageSeverityFlagBitsEXT::eVerbose;
 
-            msg_info.pfnCallback = reinterpret_cast<PFN_vkDebugReportCallbackEXT>(message_callback);
-            m_debug_msg = m_instance->createDebugReportCallbackEXT(msg_info);
+            msg_info.messageType = DebugUtilsMessageTypeFlagBitsEXT::eGeneral |
+                DebugUtilsMessageTypeFlagBitsEXT::ePerformance |
+                DebugUtilsMessageTypeFlagBitsEXT::eValidation;
+
+            msg_info.pfnUserCallback = reinterpret_cast<PFN_vkDebugUtilsMessengerCallbackEXT>(message_callback);
+            m_debug_msg = m_instance->createDebugUtilsMessengerEXT(msg_info);
         }
 
         m_devices = m_instance->enumeratePhysicalDevices();
@@ -119,7 +123,7 @@ namespace graphics
         }
 
         if(m_enable_validation && !!m_debug_msg)
-            m_instance->destroyDebugReportCallbackEXT(m_debug_msg);
+            m_instance->destroyDebugUtilsMessengerEXT(m_debug_msg);
 
         m_device.release().destroy();
         m_instance.release().destroy();

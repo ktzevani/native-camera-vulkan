@@ -51,9 +51,9 @@ namespace vk_util
         ::utilities::log_level m_level;
     };
 
-    VKAPI_ATTR vk::Bool32 VKAPI_CALL message_callback(vk::DebugReportFlagsEXT a_flags,
-        vk::DebugReportObjectTypeEXT a_obj_t, uint64_t a_src_obj, size_t a_location, int32_t a_msg_code,
-        const char* a_layer_prefix, const char* a_msg, void* a_user_data);
+    VKAPI_ATTR vk::Bool32 VKAPI_CALL message_callback(vk::DebugUtilsMessageSeverityFlagBitsEXT a_severity,
+        vk::DebugUtilsMessageTypeFlagsEXT a_msg_type, const vk::DebugUtilsMessengerCallbackDataEXT *a_dbg_data,
+        void* a_user_data);
 
     std::string readable_size(size_t a_size);
 

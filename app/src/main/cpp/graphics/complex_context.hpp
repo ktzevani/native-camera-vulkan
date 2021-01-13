@@ -163,7 +163,7 @@ namespace graphics
         std::vector<data::model_view_projection> m_mvp_data;
         std::vector<std::shared_ptr<uniform_data>> m_uniform_data;
 
-        vk::DebugReportCallbackEXT m_debug_msg;
+        vk::DebugUtilsMessengerEXT m_debug_msg;
 
         std::chrono::time_point<std::chrono::steady_clock> m_ref_time;
 

@@ -23,15 +23,10 @@ namespace graphics
         };
 
         if(m_enable_validation)
-            requested_gl_extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+            requested_gl_extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 
         vector<const char*> requested_gl_layers = {
-            "VK_LAYER_GOOGLE_threading",
-            "VK_LAYER_LUNARG_parameter_validation",
-            "VK_LAYER_LUNARG_object_tracker",
-            "VK_LAYER_LUNARG_core_validation",
-            "VK_LAYER_KHRONOS_validation",
-            "VK_LAYER_GOOGLE_unique_objects"
+            "VK_LAYER_KHRONOS_validation"
         };
 
         ApplicationInfo app_info;
@@ -65,14 +60,19 @@ namespace graphics
 
         if(m_enable_validation)
         {
-            DebugReportCallbackCreateInfoEXT msg_info;
+            DebugUtilsMessengerCreateInfoEXT msg_info;
 
-            msg_info.flags = DebugReportFlagBitsEXT::eError | DebugReportFlagBitsEXT::eInformation |
-                DebugReportFlagBitsEXT::eWarning | DebugReportFlagBitsEXT::ePerformanceWarning;
-            msg_info.pfnCallback =
-                reinterpret_cast<PFN_vkDebugReportCallbackEXT>(message_callback);
+            msg_info.messageSeverity = DebugUtilsMessageSeverityFlagBitsEXT::eError |
+                                       DebugUtilsMessageSeverityFlagBitsEXT::eInfo |
+                                       DebugUtilsMessageSeverityFlagBitsEXT::eWarning |
+                                       DebugUtilsMessageSeverityFlagBitsEXT::eVerbose;
 
-            m_debug_msg = m_instance->createDebugReportCallbackEXT(msg_info);
+            msg_info.messageType = DebugUtilsMessageTypeFlagBitsEXT::eGeneral |
+                                   DebugUtilsMessageTypeFlagBitsEXT::ePerformance |
+                                   DebugUtilsMessageTypeFlagBitsEXT::eValidation;
+
+            msg_info.pfnUserCallback = reinterpret_cast<PFN_vkDebugUtilsMessengerCallbackEXT>(message_callback);
+            m_debug_msg = m_instance->createDebugUtilsMessengerEXT(msg_info);
         }
 
         m_devices = m_instance->enumeratePhysicalDevices();
@@ -94,8 +94,8 @@ namespace graphics
             m_instance->destroySurfaceKHR(m_surface.release());
             m_device->destroySemaphore(m_render_semaphore.release());
             m_device->destroySemaphore(m_semaphore.release());
-            if(!!m_debug_msg)
-                m_instance->destroyDebugReportCallbackEXT(m_debug_msg);
+            if(m_enable_validation && !!m_debug_msg)
+                m_instance->destroyDebugUtilsMessengerEXT(m_debug_msg);
             m_device->waitIdle();
             m_device.release().destroy();
             m_instance.release().destroy();

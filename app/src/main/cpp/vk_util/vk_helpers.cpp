@@ -6,18 +6,29 @@ using namespace ::utilities;
 
 namespace vk_util
 {
-    VKAPI_ATTR Bool32 VKAPI_CALL message_callback(DebugReportFlagsEXT a_flags,
-        DebugReportObjectTypeEXT a_obj_t, uint64_t a_src_obj, size_t a_location, int32_t a_msg_code,
-        const char* a_layer_prefix, const char* a_msg, void* a_user_data)
+    VKAPI_ATTR Bool32 VKAPI_CALL message_callback(DebugUtilsMessageSeverityFlagBitsEXT a_severity,
+          DebugUtilsMessageTypeFlagsEXT a_msg_type,
+          const DebugUtilsMessengerCallbackDataEXT *a_dbg_data,
+          void* a_user_data)
     {
-        if(a_flags & DebugReportFlagBitsEXT::eInformation)
-            _log_android(log_level::info) << a_layer_prefix << " - " << a_msg;
-        else if(a_flags & DebugReportFlagBitsEXT::eWarning)
-            _log_android(log_level::warning) << a_layer_prefix << " - " << a_msg;
-        else if(a_flags & DebugReportFlagBitsEXT::eDebug)
-            _log_android(log_level::debug) << a_layer_prefix << " - " << a_msg;
-        else if(a_flags & DebugReportFlagBitsEXT::ePerformanceWarning)
-            _log_android(log_level::verbose) << a_layer_prefix << " - " << a_msg;
+        string general_type = "General";
+        string performance_type = "Performance";
+        string validation_type = "Validation";
+        string msg_type;
+
+        if(a_msg_type & DebugUtilsMessageTypeFlagBitsEXT::eGeneral)
+            msg_type = general_type;
+        else if(a_msg_type & DebugUtilsMessageTypeFlagBitsEXT::ePerformance)
+            msg_type = performance_type;
+        else if(a_msg_type & DebugUtilsMessageTypeFlagBitsEXT::eValidation)
+            msg_type = validation_type;
+
+        if(a_severity & DebugUtilsMessageSeverityFlagBitsEXT::eInfo)
+            _log_android(log_level::info) << msg_type << " - " << a_dbg_data->pMessage;
+        else if(a_severity & DebugUtilsMessageSeverityFlagBitsEXT::eWarning)
+            _log_android(log_level::warning) << msg_type << " - " << a_dbg_data->pMessage;
+        else if(a_severity & DebugUtilsMessageSeverityFlagBitsEXT::eVerbose)
+            _log_android(log_level::debug) << msg_type << " - " << a_dbg_data->pMessage;
         else
         {
             // Special treatment for specific validation errors in order to avoid premature app
@@ -27,13 +38,14 @@ namespace vk_util
             // although it seems to be working fine. My research didn't produce a solution other than
             // the following workaround.
 
-            string msg_str(a_msg);
+            string msg_str(a_dbg_data->pMessage);
 
             array<string, 3> VUID_02274 = {
                     "VUID-VkImageViewCreateInfo-usage-02274",
                     "VK_FORMAT_UNDEFINED",
                     "VK_IMAGE_TILING_OPTIMAL"
             };
+
             /*
             array<string, 2> VUID_VkSamplerCreateInfo = {
                     "VUID-VkSamplerCreateInfo-pNext-pNext",
@@ -45,7 +57,9 @@ namespace vk_util
                     "VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID"
             };
             */
+
             auto ret_flag = VK_TRUE;
+
             /*
             if(msg_str.find(VUID_VkSamplerCreateInfo[0]) != string::npos)
             {
@@ -64,9 +78,9 @@ namespace vk_util
             }
 
             if(ret_flag)
-                _log_android(log_level::error) << a_layer_prefix << " - " << a_msg;
+                _log_android(log_level::error) << msg_type << " - " << a_dbg_data->pMessage;
             else
-                _log_android(log_level::verbose) << a_layer_prefix << " - " << a_msg;
+                _log_android(log_level::verbose) << msg_type << " - " << a_dbg_data->pMessage;
 
             return ret_flag;
         }
