@@ -31,12 +31,13 @@ namespace vk_util
             _log_android(log_level::debug) << msg_type << " - " << a_dbg_data->pMessage;
         else
         {
-            // Special treatment for specific validation errors in order to avoid premature app
-            // termination. See similar issue reported at the following link
-            // https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/1935
-            // For some reason external memory resource allocation and binding doesn't pass validation
-            // although it seems to be working fine. My research didn't produce a solution other than
-            // the following workaround.
+            // Special treatment for a specific validation error in order to avoid premature app exit.
+            // It seems that for a specific external image resource format (506), vulkan does not recognize
+            // the existence of VK_IMAGE_USAGE_SAMPLED_BIT feature flag. For more details see below:
+            // https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VUID-VkImageViewCreateInfo-usage-02274.
+            // Although external format seems to lack the mentioned feature, the application works
+            // just fine when the validation error is bypassed. Maybe this has to do with some definition
+            // mismatch between the ndk vulkan library and the used headers? (To be investigated).
 
             string msg_str(a_dbg_data->pMessage);
 
@@ -46,32 +47,9 @@ namespace vk_util
                     "VK_IMAGE_TILING_OPTIMAL"
             };
 
-            /*
-            array<string, 2> VUID_VkSamplerCreateInfo = {
-                    "VUID-VkSamplerCreateInfo-pNext-pNext",
-                    "VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID"
-            };
-
-            array<string, 2> VUID_VkImageViewCreateInfo = {
-                    "VUID-VkImageViewCreateInfo-pNext-pNext",
-                    "VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID"
-            };
-            */
-
             auto ret_flag = VK_TRUE;
 
-            /*
-            if(msg_str.find(VUID_VkSamplerCreateInfo[0]) != string::npos)
-            {
-                if(msg_str.find(VUID_VkSamplerCreateInfo[1]) != string::npos)
-                    ret_flag = VK_FALSE;
-            }
-            else if(msg_str.find(VUID_VkImageViewCreateInfo[0]) != string::npos)
-            {
-                if (msg_str.find(VUID_VkImageViewCreateInfo[1]) != string::npos)
-                    ret_flag = VK_FALSE;
-            }
-            else */if(msg_str.find(VUID_02274[0]) != string::npos)
+            if(msg_str.find(VUID_02274[0]) != string::npos)
             {
                 if(msg_str.find(VUID_02274[1]) != string::npos && msg_str.find(VUID_02274[2]) != string::npos)
                     ret_flag = VK_FALSE;

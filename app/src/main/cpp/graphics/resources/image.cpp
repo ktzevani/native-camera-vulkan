@@ -41,13 +41,20 @@ namespace graphics{ namespace resources{
         ext_mem_info.handleTypes = ExternalMemoryHandleTypeFlagBitsKHR::eAndroidHardwareBufferANDROID;
 
         ExternalFormatANDROID external_format;
-
-        external_format.externalFormat = format_info.externalFormat;
-
         SamplerYcbcrConversionCreateInfo conv_info;
 
-        conv_info.pNext = &external_format;
-        conv_info.format = Format::eUndefined;
+        if(format_info.format == Format::eUndefined)
+        {
+            external_format.externalFormat = format_info.externalFormat;
+            conv_info.pNext = &external_format;
+            conv_info.format = Format::eUndefined;
+        }
+        else
+        {
+            conv_info.pNext = &external_format;
+            conv_info.format = format_info.format;
+        }
+
         conv_info.ycbcrModel = format_info.suggestedYcbcrModel;
         conv_info.ycbcrRange = format_info.suggestedYcbcrRange;
         conv_info.components = format_info.samplerYcbcrConversionComponents;
@@ -61,7 +68,6 @@ namespace graphics{ namespace resources{
         SamplerYcbcrConversionInfo conv_sampler_info;
 
         conv_sampler_info.conversion = m_conversion;
-        //conv_sampler_info.pNext = &external_format;
 
         SamplerCreateInfo sampler_info;
 
@@ -125,14 +131,23 @@ namespace graphics{ namespace resources{
         ExternalFormatANDROID external_format;
 
         external_format.pNext = &ext_mem_info;
-        external_format.externalFormat = format_info.externalFormat;
 
         ImageCreateInfo image_info;
 
-        image_info.pNext = &external_format;
+        if(format_info.format == Format::eUndefined)
+        {
+            external_format.externalFormat = format_info.externalFormat;
+            image_info.pNext = &external_format;
+            image_info.format = Format::eUndefined;
+        }
+        else
+        {
+            image_info.pNext = &external_format;
+            image_info.format = format_info.format;
+        }
+
         image_info.flags = ImageCreateFlags{0};
         image_info.imageType = ImageType::e2D;
-        image_info.format = Format::eUndefined;
         image_info.extent = Extent3D{buffer_desc.width, buffer_desc.height, 1};
         image_info.mipLevels = 1;
         image_info.arrayLayers = buffer_desc.layers;
@@ -193,15 +208,13 @@ namespace graphics{ namespace resources{
         SamplerYcbcrConversionInfo conv_sampler_info;
 
         conv_sampler_info.conversion = m_conversion;
-        //external_format.pNext = nullptr;
-        //conv_sampler_info.pNext = &external_format;
 
         ImageViewCreateInfo img_view_info;
 
+        img_view_info.format = format_info.format;
         img_view_info.pNext = &conv_sampler_info;
         img_view_info.image = m_image;
         img_view_info.viewType = ImageViewType::e2D;
-        img_view_info.format = Format::eUndefined;
         img_view_info.components = {
                 VK_COMPONENT_SWIZZLE_IDENTITY,
                 VK_COMPONENT_SWIZZLE_IDENTITY,
