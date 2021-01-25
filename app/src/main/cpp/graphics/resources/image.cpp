@@ -48,14 +48,15 @@ namespace graphics{ namespace resources{
             external_format.externalFormat = format_info.externalFormat;
             conv_info.pNext = &external_format;
             conv_info.format = Format::eUndefined;
+            conv_info.ycbcrModel = format_info.suggestedYcbcrModel;
         }
         else
         {
             conv_info.pNext = &external_format;
             conv_info.format = format_info.format;
+            conv_info.ycbcrModel = SamplerYcbcrModelConversion::eYcbcr601;
         }
 
-        conv_info.ycbcrModel = format_info.suggestedYcbcrModel;
         conv_info.ycbcrRange = format_info.suggestedYcbcrRange;
         conv_info.components = format_info.samplerYcbcrConversionComponents;
         conv_info.xChromaOffset = format_info.suggestedXChromaOffset;
@@ -211,8 +212,8 @@ namespace graphics{ namespace resources{
 
         ImageViewCreateInfo img_view_info;
 
-        img_view_info.format = format_info.format;
         img_view_info.pNext = &conv_sampler_info;
+        img_view_info.format = format_info.format;
         img_view_info.image = m_image;
         img_view_info.viewType = ImageViewType::e2D;
         img_view_info.components = {
