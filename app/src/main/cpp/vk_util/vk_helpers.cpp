@@ -31,13 +31,24 @@ namespace vk_util
             _log_android(log_level::debug) << msg_type << " - " << a_dbg_data->pMessage;
         else
         {
-            // Special treatment for a specific validation error in order to avoid premature app exit.
-            // It seems that for a specific external image resource format (506), vulkan does not recognize
-            // the existence of VK_IMAGE_USAGE_SAMPLED_BIT feature flag. For more details see below:
-            // https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VUID-VkImageViewCreateInfo-usage-02274.
-            // Although external format seems to lack the mentioned feature, the application works
-            // just fine when the validation error is bypassed. Maybe this has to do with some definition
-            // mismatch between the ndk vulkan library and the used headers? (To be investigated).
+            // Special treatment for a specific validation error in order to avoid premature app exit
+            // when validation layers are enabled. For an explanation read the following.
+            //
+            // It seems that for the camera-specific format (vulkan image resource external format = 506)
+            // of the development device (Nokia 6.1, Adreno 508, Driver 512.415.0, Vulkan API Version 1.1.87),
+            // the feature flag VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT is missing as reported by the hardware
+            // buffer format properties. Although this external format seems to be lacking the mentioned
+            // feature, the application works if the validation check is omitted. This is weird because
+            // in order for an external image buffer of unknown to vulkan format, to be mapped in vulkan
+            // space and consumed inside a vulkan context (via the use of a ycbcr sampler), its format
+            // MUST support sampling feature.
+            //
+            // For more details see below:
+            // - https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#samplers-YCbCr-conversion
+            // - https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VUID-VkImageViewCreateInfo-usage-02274
+            //
+            // Maybe this is an error in camera format definitions of the specific device. Don't have
+            // the resources to test this in other devices (To be investigated).
 
             string msg_str(a_dbg_data->pMessage);
 
