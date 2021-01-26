@@ -1,8 +1,13 @@
 # native-camera-vulkan
 
+```
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/ktzevani)
+```
+
 <p align="center">
 	<img src="doc/res/cpp-logo.svg"> <img src="doc/res/vulkan-logo.svg"> <img src="doc/res/android-logo.svg">
 </p>
+
 
 > Native android application that showcases camera preview mapping on a spinning 3D cube.
 
@@ -66,10 +71,6 @@ The codebase of the project targets intermediate-level C++ programmers with some
 <tr><td><a href="https://github.com/g-truc/glm">GLM</a></td><td>v0.9.9.8</td></tr>
 <tr><td><a href="https://github.com/nothings/stb">STB</a></td><td>v2.26 (stb_image)</td></tr>
 </table>
-
-
-
-
 For more information see [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk) and [Build Instructions](#build-instructions).
 
 ### Application Architecture
@@ -107,9 +108,9 @@ The provided [cmake configuration](https://github.com/ktzevani/native-camera-vul
 
 *First*, one can configure **BUILD_FLAVOR** cmake variable in order to determine whether to build a simplified version of the application (*Simple Vulkan Context*) or the full (*Complex Vulkan Context*) version. 
 
-*Second*, by tweaking on and off certain compilation flags one can select whether to include or not in the final binary, some of the following facilities:
+*Second*, by tweaking on and off certain compilation flags one can select whether to include or not in the final binary, some of the following:
 
-- **Debug symbols**
+- **Debug Symbols**
 - **Validation Layer**
 - **Logging Facility**
 - **Profiling Facility**
@@ -131,10 +132,31 @@ In total, 8 different build outputs can be produced by the various compilation c
 
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
 
+1. [A Tour of C++, 2nd Edition - Bjarne Stroustrup](https://www.stroustrup.com/tour2.html): Quick overview of C++17 and a general not-in-depth C++ refresher for system programmers.
+2. [Vulkan Specification](https://www.khronos.org/registry/vulkan/specs/1.2/html): The best Vulkan resource.
+3. [NDK Guides](https://developer.android.com/ndk/guides): The best native Android development resource.
+4. [Camera2 API Reference](https://developer.android.com/ndk/reference/group/camera).
+5. [Vulkan Samples](https://github.com/khronosGroup/Vulkan-samples): Official Vulkan samples repository.
+6. [Vulkan C++ Examples and Demos](https://github.com/SaschaWillems/Vulkan): Awesome repository with a great number of helpful samples.
+7. [Vulkan Tutorial](https://vulkan-tutorial.com/): Great resource for Vulkan beginners.
+
 ## Contributing
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
 
+Contributions are always welcome! I'll try to review new [pull requests](https://github.com/ktzevani/native-camera-vulkan/pulls) frequently, make sure to include a clear and detailed summary about the proposed changes. Also feel free to contact me in any of the advertised ways in my profile.
+
 ## Donations
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
+
+If you found this work helpful and want to support the author, consider making [a donation.](https://paypal.me/ktzevani)
+
 ## License
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
+
+This project is licensed under the general terms of the [Apache-2.0 License](https://www.apache.org/licenses/LICENSE-2.0). See [LICENSE](https://github.com/ktzevani/native-camera-vulkan/blob/master/LICENSE) for more information related to the usage and redistribution of this project.
+
+### Trademarks
+
+- Vulkan and Vulkan logo are registered trademarks of the [Khronos Group Inc.](https://www.khronos.org/)
+- Android and Android logo are registered trademarks of the [Google LLC](https://www.google.com/).
+- C++ logo is registered trademark of the [Standard C++ Foundation](https://isocpp.org/). 
