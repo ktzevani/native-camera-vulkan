@@ -6,7 +6,6 @@
 	<img src="doc/res/cpp-logo.svg"> <img src="doc/res/vulkan-logo.svg"> <img src="doc/res/android-logo.svg">
 </p>
 
-
 > Native android application that showcases camera preview mapping on a spinning 3D cube.
 
 Native android application developed with the use of Vulkan API that performs real-time camera preview mapping on a spinning 3D cube. The aim of the project is to provide with an elaborate example that showcases various useful, according to the author, basic-to-intermediate developing techniques for the creation of Vulkan-powered native android applications that make use of multiple hardware facilities.
@@ -65,10 +64,10 @@ The codebase of the project targets intermediate-level C++ programmers with some
 <tr><td><a href="https://github.com/KhronosGroup/Vulkan-Headers">Vulkan</a></td><td>v1.2.162</td></tr>
 <tr><td><a href="https://github.com/KhronosGroup/Vulkan-Hpp">Vulkan HPP</a></td><td>v1.2.162</td></tr>
 <tr><td><a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers">Validation Layers</a></td><td><a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/sdk-1.2.162.1/android-binaries-1.2.162.1.zip">v1.2.162</a></td></tr>
-<tr><td><a href="https://www.boost.org/">Boost</a></td><td>v1.74.0</td></tr>
 <tr><td><a href="https://github.com/g-truc/glm">GLM</a></td><td>v0.9.9.8</td></tr>
 <tr><td><a href="https://github.com/nothings/stb">STB</a></td><td>v2.26 (stb_image)</td></tr>
 </table>
+
 For more information see [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk) and [Build Instructions](#build-instructions).
 
 ### Application Architecture
