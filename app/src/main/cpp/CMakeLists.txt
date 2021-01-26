@@ -14,8 +14,8 @@ elseif(BUILD_FLAVOR STREQUAL "COMPLEX_VULKAN")
 endif()
 
 add_definitions(
-        -DVK_USE_PLATFORM_ANDROID_KHR
-        -DVK_NO_PROTOTYPES
+        -DVK_USE_PLATFORM_ANDROID_KHR #required
+        -DVK_NO_PROTOTYPES #required
         -DNDEBUG
         #-DNCV_VULKAN_VALIDATION_ENABLED
         #-DNCV_LOGGING_ENABLED

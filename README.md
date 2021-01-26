@@ -18,8 +18,10 @@ Native android application developed with the use of Vulkan API that performs re
 		* [Graphics Pipeline](#graphics-pipeline)
 	+ [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk)
 	+ ["*Java-less*" Native Application](#java-less-native-application)
-	+ [Camera Preview via External Buffers](#camera-preview-via-external-buffers)
+	+ [Camera Preview and Hardware Buffers](#camera-preview-and-hardware-buffers)
+	+ [Custom Logging Facility](#custom-logging-facility)
 - [Build Instructions](#build-instructions)
+  - [Build Flavours](#build-flavours)
 - [References](#references)
 - [Contributing](#contributing)
 - [Donations](#donations)
@@ -46,24 +48,25 @@ In the references section, I list all sources that guided me in realizing this p
 
 ### Pre-requisites
 
-The codebase of the project targets intermediate-level C++ programmers with some knowledge of the C++17 standard. The project is made in Android Studio with the aid of CMake. Thus, knowledge of this IDE and building tools (CMake, Gradle, AVD & SDK Managers) is required. Finally, native-camera-vulkan makes use of some external to NDK binary and header libraries, so the developer must configure the development environment in such a way (acquiring needed libraries, configure locations etc.), as to meet the following. 
+The codebase of the project targets intermediate-level C++ programmers with some knowledge of the C++17 standard. The project is made in Android Studio with the aid of CMake. Thus, knowledge of this IDE and building tools (CMake, Gradle, AVD & SDK Managers) is required. The development OS was Windows 10. Finally, native-camera-vulkan makes use of some external to NDK binary and header libraries, so the developer must configure the development environment in such a way (acquiring needed libraries, configure locations etc.), as to meet the following. 
 
 <table>
-<tr><td colspan="2" align="center" width="900">Development Tools</td></tr>
+<tr><th colspan="2" align="center" width="900">Development Tools</th></tr>
 <tr><td><a href="https://developer.android.com/studio">Android Studio</a></td><td>v4.1.2</td></tr>
 <tr><td><a href="https://developer.android.com/ndk">NDK</a></td><td>v22.0.7026061</td></tr>
 <tr><td><a href="https://developer.android.com/studio/releases/platform-tools">SDK Platform</a></td><td>v30.3</td></tr>
 <tr><td><a href="https://developer.android.com/studio/releases/build-tools">SDK Build-Tools</a></td><td>v30.0.3</td></tr>
-<tr><td colspan="2" align="center">External (to AS) Development Tools</td></tr>
+<tr><th colspan="2" align="center">External (to AS) Development Tools</th></tr>
 <tr><td><a href="https://cmake.org/">CMake</a></td><td>v3.19.2</td></tr>    
-<tr><td colspan="2" align="center">External (to NDK) Libraries</td></tr>
+<tr><th colspan="2" align="center">External (to NDK) Libraries</th></tr>
 <tr><td><a href="https://github.com/KhronosGroup/Vulkan-Headers">Vulkan</a></td><td>v1.2.162</td></tr>
 <tr><td><a href="https://github.com/KhronosGroup/Vulkan-Hpp">Vulkan HPP</a></td><td>v1.2.162</td></tr>
-<tr><td><a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers">Validation Layers</a></td><td>v1.2.162</td></tr>
+<tr><td><a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers">Validation Layers</a></td><td><a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/sdk-1.2.162.1/android-binaries-1.2.162.1.zip">v1.2.162</a></td></tr>
 <tr><td><a href="https://www.boost.org/">Boost</a></td><td>v1.74.0</td></tr>
 <tr><td><a href="https://github.com/g-truc/glm">GLM</a></td><td>v0.9.9.8</td></tr>
-<tr><td><a href="https://github.com/nothings/stb">STB</a></td><td>v2.26 (stb_image)</td></tr>    
+<tr><td><a href="https://github.com/nothings/stb">STB</a></td><td>v2.26 (stb_image)</td></tr>
 </table>
+
 
 
 
@@ -73,14 +76,58 @@ For more information see [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk) and [Bu
 
 ### Vulkan C++ API and NDK
 
-The Android NDK used in this project (see [Pre-requisites](#pre-requisites)), ships with an outdated version of the Vulkan headers (v1.2.121). These headers do not correspond to a Vulkan HPP library version. So it is decided that for the purposes of the development, a newer version of the libraries as well as of the validation layers will be used (v1.2.162). In order to do so, besides including the newer headers in the project, the corresponding binaries of the validation layers had to also be introduced as dependencies in Gradle, see [Build-Instructions](#build-instructions) for more details.
+The Android NDK used in this project (see [Pre-requisites](#pre-requisites)), ships with an outdated version of the Vulkan headers (v1.2.121). These headers do not correspond to a Vulkan HPP library version (at least not an interesting one). So it is decided that for the purposes of the development, a newer version of the libraries as well as of the validation layers will be used (v1.2.162). In order to do so, besides including the newer headers in the project, the corresponding binaries of the validation layers had to also be introduced as dependencies in Gradle, see [Build-Instructions](#build-instructions) for more details.
 
 ### "*Java-less*" Native Application
-### Camera Preview via External Buffers
+### Camera Preview and Hardware Buffers
+
+### Custom Logging Facility
+
 ## Build Instructions
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
 
+For a successful build, [v3.19.2](https://github.com/Kitware/CMake/releases/download/v3.19.2/cmake-3.19.2.zip) of CMake must be installed in the development system and registered in the development environment via PATH variable. The project is configured to look for an externally managed (in respect to the Android Studio) cmake binary.
+
+Also LIBRARIES_ROOT environment variable must point to a location where the dependencies listed in [Pre-requisites](#pre-requisites) exist in a pre-specified directory structure as detailed in the table below:
+
+| Local Directory                                              | Mapped Source                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **%LIBRARIES_ROOT%**\vulkan\vulkan                           | [Repository\include\vulkan](https://github.com/KhronosGroup/Vulkan-Headers/tree/master/include/vulkan) |
+| **%LIBRARIES_ROOT%**\vulkan_hpp\vulkan_hpp                   | [Repository\vulkan](https://github.com/KhronosGroup/Vulkan-Hpp/tree/master/vulkan) |
+| **%LIBRARIES_ROOT%**\stb\stb                                 | [Repository\stb](https://github.com/nothings/stb)<sup>1</sup> |
+| **%LIBRARIES_ROOT%**\glm\glm                                 | [Repository\glm\glm](https://github.com/g-truc/glm/tree/master/glm) |
+| **%LIBRARIES_ROOT%**\vulkan_validation_layers\bin\android-1.2.162 | (extracted layer binaries [.zip](https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/sdk-1.2.162.1/android-binaries-1.2.162.1.zip)) |
+
+<sup>1</sup> In the case of STB library you can isolate source files in new directory (i.e. include) and map that one to the specified local path.
+
+### Build Flavours
+
+The provided [cmake configuration](https://github.com/ktzevani/native-camera-vulkan/blob/master/app/src/main/cpp/CMakeLists.txt) is parameterized. The developer can control the build output by configuring two compilation aspects. 
+
+*First*, one can configure **BUILD_FLAVOR** cmake variable in order to determine whether to build a simplified version of the application (*Simple Vulkan Context*) or the full (*Complex Vulkan Context*) version. 
+
+*Second*, by tweaking on and off certain compilation flags one can select whether to include or not in the final binary, some of the following facilities:
+
+- **Debug symbols**
+- **Validation Layer**
+- **Logging Facility**
+- **Profiling Facility**
+
+In total, 8 different build outputs can be produced by the various compilation configurations that can be specified. The following table provides an overview:
+
+<table>
+<tr><th colspan="2" align="center" width="900">CMAKE Variable</th></tr>
+<tr><td rowspan="2">BUILD_FLAVOR</td><td>SIMPLE_VULKAN: Basic Vulkan context, no graphics pipeline</td></tr>
+<tr><td>COMPLEX_VULKAN: Complete Vulkan context</td></tr>
+<tr><th colspan="2" align="center">Compilation Flags</th></tr>
+<tr><td>NDEBUG</td><td>Include debug symbols</td></tr>
+<tr><td>NCV_VULKAN_VALIDATION_ENABLED</td><td>Enable validation layer</td></td></tr>
+<tr><td>NCV_LOGGING_ENABLED</td><td>Enable custom logging facility</td></tr>
+<tr><td>NCV_PROFILING_ENABLED</td><td>Enable profiling facility</td></tr>
+</table>
+
 ## References
+
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
 
 ## Contributing
