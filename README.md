@@ -91,7 +91,7 @@ For a successful build, [v3.19.2](https://github.com/Kitware/CMake/releases/down
 Also LIBRARIES_ROOT environment variable must point to a location where the dependencies listed in [Pre-requisites](#pre-requisites) exist in a pre-specified directory structure as detailed in the table below:
 
 <table>
-<tr><th align="center" width="500">Local Directory</th><th align="center" width="400">Mapped Source</th></tr>
+<tr><th align="center" width="600">Local Directory</th><th align="center" width="300">Mapped Source</th></tr>
 <tr><td><b>%LIBRARIES_ROOT%</b>\vulkan\vulkan</td><td><a href="https://github.com/KhronosGroup/Vulkan-Headers/tree/master/include/vulkan">Repository\include\vulkan</a></td></tr>
 <tr><td><b>%LIBRARIES_ROOT%</b>\vulkan_hpp\vulkan_hpp</td><td><a href="https://github.com/KhronosGroup/Vulkan-Hpp/tree/master/vulkan">Repository\vulkan</a></td></td></tr>
 <tr><td><b>%LIBRARIES_ROOT%</b>\stb\stb</td><td><a href="https://github.com/nothings/stb">Repository\stb</a><sup>1</sup></td></tr>
@@ -133,6 +133,7 @@ In total, 8 different build outputs can be produced by the various compilation c
 
 ## Contributing
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
+
 ## Donations
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
 ## License
