@@ -90,13 +90,14 @@ For a successful build, [v3.19.2](https://github.com/Kitware/CMake/releases/down
 
 Also LIBRARIES_ROOT environment variable must point to a location where the dependencies listed in [Pre-requisites](#pre-requisites) exist in a pre-specified directory structure as detailed in the table below:
 
-| Local Directory                                              | Mapped Source                                                |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **%LIBRARIES_ROOT%**\vulkan\vulkan                           | [Repository\include\vulkan](https://github.com/KhronosGroup/Vulkan-Headers/tree/master/include/vulkan) |
-| **%LIBRARIES_ROOT%**\vulkan_hpp\vulkan_hpp                   | [Repository\vulkan](https://github.com/KhronosGroup/Vulkan-Hpp/tree/master/vulkan) |
-| **%LIBRARIES_ROOT%**\stb\stb                                 | [Repository\stb](https://github.com/nothings/stb)<sup>1</sup> |
-| **%LIBRARIES_ROOT%**\glm\glm                                 | [Repository\glm\glm](https://github.com/g-truc/glm/tree/master/glm) |
-| **%LIBRARIES_ROOT%**\vulkan_validation_layers\bin\android-1.2.162 | (extracted layer binaries [.zip](https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/sdk-1.2.162.1/android-binaries-1.2.162.1.zip)) |
+<table>
+<tr><th align="center" width="500">Local Directory</th><th align="center" width="400">Mapped Source</th></tr>
+<tr><td><b>%LIBRARIES_ROOT%</b>\vulkan\vulkan</td><td><a href="https://github.com/KhronosGroup/Vulkan-Headers/tree/master/include/vulkan">Repository\include\vulkan</a></td></tr>
+<tr><td><b>%LIBRARIES_ROOT%</b>\vulkan_hpp\vulkan_hpp</td><td><a href="https://github.com/KhronosGroup/Vulkan-Hpp/tree/master/vulkan">Repository\vulkan</a></td></td></tr>
+<tr><td><b>%LIBRARIES_ROOT%</b>\stb\stb</td><td><a href="https://github.com/nothings/stb">Repository\stb</a><sup>1</sup></td></tr>
+<tr><td><b>%LIBRARIES_ROOT%</b>\glm\glm</td><td><a href="https://github.com/g-truc/glm/tree/master/glm">Repository\glm\glm</a></td></tr>
+<tr><td><b>%LIBRARIES_ROOT%</b>\vulkan_validation_layers\bin\android-1.2.162</td><td>(extracted layer binaries <a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/sdk-1.2.162.1/android-binaries-1.2.162.1.zip">.zip</a>)</td></tr>
+</table>
 
 <sup>1</sup> In the case of STB library you can isolate source files in new directory (i.e. include) and map that one to the specified local path.
 
