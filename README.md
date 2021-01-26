@@ -49,7 +49,7 @@ In the references section, I list all sources that guided me in realizing this p
 The codebase of the project targets intermediate-level C++ programmers with some knowledge of the C++17 standard. The project is made in Android Studio with the aid of CMake. Thus, knowledge of this IDE and building tools (CMake, Gradle, AVD & SDK Managers) is required. Finally, native-camera-vulkan makes use of some external to NDK binary and header libraries, so the developer must configure the development environment in such a way (acquiring needed libraries, configure locations etc.), as to meet the following. 
 
 <table>
-<tr><img width="882" height="1"><td colspan="2" align="center">Development Tools</td></tr>
+<tr><td colspan="2" align="center" width="900">Development Tools</td></tr>
 <tr><td><a href="https://developer.android.com/studio">Android Studio</a></td><td>v4.1.2</td></tr>
 <tr><td><a href="https://developer.android.com/ndk">NDK</a></td><td>v22.0.7026061</td></tr>
 <tr><td><a href="https://developer.android.com/studio/releases/platform-tools">SDK Platform</a></td><td>v30.3</td></tr>
