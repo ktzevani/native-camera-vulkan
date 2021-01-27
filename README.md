@@ -10,7 +10,9 @@
 
 Native android application developed with the use of Vulkan API that performs real-time camera preview mapping on a spinning 3D cube. The aim of the project is to provide with an elaborate example that showcases various useful, according to the author, basic-to-intermediate developing techniques for the creation of Vulkan-powered native android applications that make use of multiple hardware facilities.
 
-<img src="doc/res/demo.gif" alt="Application Preview"/>
+<p align="center">
+	<img src="doc/res/demo.gif" alt="Application Preview"/>
+</p>
 
 ## Table of contents
 
