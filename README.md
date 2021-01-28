@@ -21,6 +21,7 @@ Native android application developed with the use of Vulkan API that performs re
   + [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk)
   + ["*Java-less*" Native Application](#java-less-native-application)
   + [Camera Preview and Hardware Buffers](#camera-preview-and-hardware-buffers)
+  + [Input and Accelerometer](#input-and-accelerometer)
   + [Custom Logging Facility](#custom-logging-facility)
 - [Build Instructions](#build-instructions)
   - [Build Flavours](#build-flavours)
@@ -106,6 +107,11 @@ It is a common practice in native Android applications to use Java code for hand
 ### Camera Preview and Hardware Buffers
 
 The communication of camera images to the graphics engine is made via the usage of ```AHardwareBuffer``` (see [Native Hardware Buffer](https://developer.android.com/ndk/reference/group/a-hardware-buffer)) objects. Camera device is set to work at a *Preview* mode in order for frames to captured as fast as possible (this doesn't favour quality, for more information see [here](https://developer.android.com/ndk/reference/group/camera#acameradevice_request_template)). A simple synchronous [image reader](app/src/main/cpp/devices/image_reader.hpp) is implemented and governed by the application engine. This means that frames are requested at a rate that corresponds to the rendering frequency (i.e. as fast as possible). Typically, a camera device would be much slower than the graphics engine. For this, the image reader also plays another role. It decouples the camera device from the graphics engine so that the graphics engine can request frames as fast as it can without the burden of handling unanswered requests, while the camera device can serve frames at it's own pace. Off course, in the event of absence of a new image, graphics engine renders the old one(s).
+
+### Input and Accelerometer
+
+Touchscreen (i.e. input) and [accelerometer](app/src/main/cpp/devices/accelerometer.hpp) devices have also been integrated into the application. Any change of touch input (e.g. touch screen coordinates) or of the orientation of the physical device is reflected in the application as background color change.
+
 
 ### Custom Logging Facility
 
