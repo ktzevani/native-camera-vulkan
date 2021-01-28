@@ -31,8 +31,11 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
 
-        versionCode 1
-        versionName "1.0"
+        // ONLY FOR APK PRODUCTION
+        // Set version numbers manually according to the contents of main/cpp/metadata/version.cpp
+
+        versionCode 2
+        versionName "0.3.0-7"
 
         externalNativeBuild {
             cmake {
