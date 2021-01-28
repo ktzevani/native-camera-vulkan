@@ -14,6 +14,12 @@
 # limitations under the License.
 #
 
+# Bump semantic versioning by using one of the following (from inside current directory):
+#
+# >cmake -DBUMP_MAJOR:boolean=true -P version.cmake
+# >cmake -DBUMP_MINOR:boolean=true -P version.cmake
+# >cmake -DBUMP_PATCH:boolean=true -P version.cmake
+
 if(EXISTS metadata/version.dat)
     file(READ metadata/version.dat VERSION_LIST_)
 else()

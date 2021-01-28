@@ -173,7 +173,7 @@ The provided [cmake configuration](https://github.com/ktzevani/native-camera-vul
 
 *Second*, by tweaking on and off certain compilation flags one can select whether to include or not in the final binary, some of the following:
 
-- **Debug Symbols**
+- **Debug Build Indication**
 - **Validation Layer**
 - **Logging Facility**
 - **Profiling Facility**
@@ -185,11 +185,12 @@ In total, 8 different build outputs can be produced by the various compilation c
 <tr><td rowspan="2">BUILD_FLAVOR</td><td>SIMPLE_VULKAN: Basic Vulkan context, no graphics pipeline</td></tr>
 <tr><td>COMPLEX_VULKAN: Complete Vulkan context</td></tr>
 <tr><th colspan="2" align="center">Compilation Flags</th></tr>
-<tr><td>NDEBUG</td><td>Include debug symbols</td></tr>
+<tr><td>NDEBUG</td><td>Set for release builds</td></tr>
 <tr><td>NCV_VULKAN_VALIDATION_ENABLED</td><td>Enable validation layer</td></td></tr>
 <tr><td>NCV_LOGGING_ENABLED</td><td>Enable custom logging facility</td></tr>
 <tr><td>NCV_PROFILING_ENABLED</td><td>Enable profiling facility</td></tr>
 </table>
+
 
 ## References
 
