@@ -93,7 +93,7 @@ For more information see [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk) and [Bu
 <tr><td>VK_KHR_dedicated_allocation</td></tr>
 <tr><td>VK_ANDROID_external_memory_android_hardware_buffer</td></tr>
 </table>
-Also it is expected that the device has a front and a back camera. It is fixed for the back facing camera to be selected for usage (this can be changed through the code [here](app/src/main/cpp/devices/camera.cpp#L78)). The application was tested successfully on a Nokia 6.1 and a Samsung Galaxy A50. For the development environment a Nvidia GTX 770 was used.
+Also it is expected that the device has a front and a back camera. It is fixed for the back facing camera to be selected for usage (this can be changed through the code [here](https://github.com/ktzevani/native-camera-vulkan/blob/master/app/src/main/cpp/devices/camera.cpp#L78)). The application was tested successfully on a Nokia 6.1 and a Samsung Galaxy A50. For the development environment a Nvidia GTX 770 was used.
 
 ### Vulkan C++ API and NDK
 
