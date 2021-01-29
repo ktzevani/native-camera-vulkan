@@ -45,7 +45,7 @@ By further studying and working on this idea, I also discovered that there aren'
 
 - Design of a basic Vulkan context for 3D rendering.
 
-- Integration of camera data (using the [Camera2 API](https://developer.android.com/ndk/reference/group/camera)) via the communication of external hardware buffers to the Vulkan context.
+- Camera-Vulkan APIs interoperability: Communication of camera data, via the usage of [Camera2 API](https://developer.android.com/ndk/reference/group/camera) and utilization of external hardware buffers, to the Vulkan context.
 
 In the [references](#references) section, I list all sources that guided me in realizing this project.
 
@@ -71,7 +71,7 @@ The style and conventions of the project's codebase targets intermediate-level C
 
 For more information see [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk) and [Build Instructions](#build-instructions).
 
-[native-camera-vulkan](https://github.com/ktzevani/native-camera-vulkan) is built to support devices running Android Oreo (v8.0) or newer (minimum SDK Version is 26), but... Some strong assumptions has been made here and there throughout the project. The application expects from the device, to support certain Vulkan extensions. Not all devices could run this application, but the ones that support the following (in addition to supporting running Vulkan, that is :smiley:):
+[native-camera-vulkan](https://github.com/ktzevani/native-camera-vulkan) is built to support devices running Android Oreo (v8.0) or newer (minimum SDK Version is 26), but... Some strong assumptions have been made here and there throughout the project. The application expects from the device, to support certain Vulkan extensions. Not all devices could run this application, but the ones that support the following (in addition to supporting running Vulkan, that is :smiley:):
 
 <table>
 <tr><th align="center" width="900">Instance Extensions</th></tr>
