@@ -70,7 +70,7 @@ The style and conventions of the project's codebase targets intermediate-level C
 </table>
 For more information see [Vulkan C++ API and NDK](#vulkan-c-api-and-ndk) and [Build Instructions](#build-instructions).
 
-Some strong assumptions has been made here and there throughout the project. Mainly regarding the fact that the application expects from the device to support certain Vulkan extensions. Not all devices could run this application but the ones supporting the following (in addition to supporting running Vulkan, that is :smiley:):
+[native-camera-vulkan](https://github.com/ktzevani/native-camera-vulkan) is built to support devices running Android Oreo (v8.0) or newer (minimum SDK Version is 26), but... Some strong assumptions has been made here and there throughout the project. The application expects from the device, to support certain Vulkan extensions. Not all devices could run this application, but the ones that support the following (in addition to supporting running Vulkan, that is :smiley:):
 
 <table>
 <tr><th align="center" width="900">Instance Extensions</th></tr>
@@ -93,6 +93,7 @@ Some strong assumptions has been made here and there throughout the project. Mai
 <tr><td>VK_KHR_dedicated_allocation</td></tr>
 <tr><td>VK_ANDROID_external_memory_android_hardware_buffer</td></tr>
 </table>
+Also it is expected that the device has a front and a back camera. It is fixed for the back facing camera to be selected for usage (this can be changed through the code [here](app/src/main/cpp/devices/camera.cpp#L78)). The application was tested successfully on a Nokia 6.1 and a Samsung Galaxy A50. For the development environment a Nvidia GTX 770 was used.
 
 ### Vulkan C++ API and NDK
 

@@ -72,6 +72,9 @@ namespace devices
             if(ACameraMetadata_getConstEntry(metadata, ACAMERA_LENS_FACING, &entry) == ACAMERA_OK)
             {
                 auto facing = static_cast<acamera_metadata_enum_android_lens_facing_t>(entry.data.u8[0]);
+
+                // Select which camera to use (front or back)
+
                 if(facing == ACAMERA_LENS_FACING_BACK)
                     selected_camera = string(cam_id);
             }
