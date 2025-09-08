@@ -212,11 +212,6 @@ In total, 8 different build outputs can be produced by the various compilation c
 
 Contributions are always welcome! I'll try to review new [pull requests](https://github.com/ktzevani/native-camera-vulkan/pulls) frequently, make sure to include a clear and detailed summary about the proposed changes. Also feel free to contact me for any questions, in any of the advertised ways in my profile.
 
-## Donations
-[![To TOC](doc/res/toc.svg)](#table-of-contents)
-
-If you found this work helpful and want to support the author, consider making [a donation.](https://paypal.me/ktzevani)
-
 ## License
 [![To TOC](doc/res/toc.svg)](#table-of-contents)
 
