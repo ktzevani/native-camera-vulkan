@@ -1,7 +1,5 @@
 # native-camera-vulkan
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/ktzevani)
-
 <p align="center">
 	<img src="doc/res/cpp-logo.svg"> <img src="doc/res/vulkan-logo.svg"> <img src="doc/res/android-logo.svg">
 </p>
